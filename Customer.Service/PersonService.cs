@@ -1,5 +1,8 @@
-﻿using Customer.Domain.Entities.Person;
+﻿using AutoMapper;
+using Customer.Domain.Dtos;
+using Customer.Domain.Entities.Person;
 using Customer.Domain.Interfaces;
+using Customer.Domain.Mapper;
 using Customer.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -11,9 +14,12 @@ namespace Customer.Service
     {
         private readonly IRepository<PersonEntity> _repository;
 
-        public PersonService(IRepository<PersonEntity> repository)
+        private readonly IMapper _mapper;
+
+        public PersonService(IRepository<PersonEntity> repository, IServiceMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper.GetMapper();
         }
 
         public async Task<bool> DeleteAsync(Guid id)
@@ -21,25 +27,24 @@ namespace Customer.Service
             return await _repository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<PersonEntity>> GetAllAsync()
+        public async Task<IEnumerable<PersonDto>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
-
+            return  _mapper.Map<IEnumerable<PersonDto>>(await _repository.GetAllAsync());
         }
 
-        public async Task<PersonEntity> InsertAsync(PersonEntity entity)
+        public async Task<PersonCreateDto> InsertAsync(PersonEntity entity)
         {
-            return await _repository.UpdateAsync(entity);
+            return _mapper.Map<PersonCreateDto>(await _repository.UpdateAsync(entity));
         }
 
-        public async Task<PersonEntity> SingleAsync(Guid id)
+        public async Task<PersonDto> SingleAsync(Guid id)
         {
-            return await _repository.SingleAsync(id);
+            return _mapper.Map<PersonDto>(await _repository.SingleAsync(id));
         }
 
-        public async Task<PersonEntity> UpdateAsync(PersonEntity entity)
+        public async Task<PersonUpdateDto> UpdateAsync(PersonEntity entity)
         {
-            return await _repository.UpdateAsync(entity);
+            return _mapper.Map<PersonUpdateDto>(await _repository.UpdateAsync(entity));
         }
     }
 }
