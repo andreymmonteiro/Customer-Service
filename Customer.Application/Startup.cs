@@ -32,6 +32,7 @@ namespace Customer.Application
             services.AddGrpc();
             ConfigureDatabase.Connection = Configuration.GetSection(ConnectionString).Value;
             InitializeDatabase(services);
+            ConfigureServicesApplication.AddServices(services);
         }
 
         private static void InitializeDatabase(IServiceCollection services)
