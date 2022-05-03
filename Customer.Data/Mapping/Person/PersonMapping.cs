@@ -1,14 +1,15 @@
-﻿using Customer.Domain.Entities.Contact;
+﻿using Customer.Domain.Entities.Person;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Customer.Data.Mapping.Person
 {
-    internal sealed class PersonMapping : IEntityTypeConfiguration<ContactEntity>
+    internal sealed class PersonMapping : IEntityTypeConfiguration<PersonEntity>
     {
-        public void Configure(EntityTypeBuilder<ContactEntity> builder)
+        private const string TABLE = "Person";
+        public void Configure(EntityTypeBuilder<PersonEntity> builder)
         {
-            throw new System.NotImplementedException();
+            builder.ToTable(TABLE);
         }
     }
 }

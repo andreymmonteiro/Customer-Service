@@ -6,7 +6,7 @@ namespace Customer.Data.Context
 {
     sealed class ContextFactory : IDesignTimeDbContextFactory<MyContext>
     {
-        private const string MY_SQL_CONNECTION = "Server=127.0.0.1;Port=3306;Database=Financial;Uid=root;Pwd=masterkey";
+        private const string MY_SQL_CONNECTION = "Server=127.0.0.1;Port=3306;Database=Customer;Uid=root;Pwd=masterkey";
 
         public MyContext CreateDbContext(string[] args)
         {
